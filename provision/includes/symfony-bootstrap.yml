@@ -8,6 +8,20 @@
     - install
     - deploy
 
+- name: Copy prod.encrypt.private.php
+  copy:
+    src: "../../config/secrets/{{ app_env }}/{{ app_env }}.decrypt.private.php"
+    dest: "{{ secrets_private_key }}"
+  tags:
+    - install
+    - deploy
+
+- name: Decrept secrets to local environment
+  command: "{{ symfony_console_path }}  secrets:decrypt-to-local --force --env={{ app_env }}"
+  tags:
+    - install
+    - deploy
+
 - name: Composer dump env
   shell: "cd {{ project_dir }} && composer dump-env {{ app_env }}"
   tags:

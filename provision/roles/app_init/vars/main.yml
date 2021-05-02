@@ -2,4 +2,5 @@
 init_packages: ['git']
 repo_url: "https://github.com/esgras/symfony-secret.git"
 project_dir: "/var/www/{{ site_name }}"
+secrets_private_key: "{{ project_dir }}/config/secrets/{{ app_env }}/{{ app_env }}.decrypt.private.php"
 app_user: vagrant
