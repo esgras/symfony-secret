@@ -1,0 +1,2 @@
+[vb]
+192.168.33.10 ansible_user=vagrant ansible_ssh_private_key_file=/home/vayn/code_practice/ansible_docker/.vagrant/machines/default/virtualbox/private_key

@@ -32,7 +32,7 @@ class TaskService
 
     public function create(TaskCreateDto $dto): Task
     {
-        $task = new Task($dto->getName(), $dto->isFinished());
+        $task = new Task($dto->getName());
         $this->taskRepository->save($task);
 
         return $task;
@@ -41,7 +41,7 @@ class TaskService
     public function update(TaskUpdateDto $dto): Task
     {
         $task = $this->get($dto->getId());
-        $task->update($dto->getName(), $dto->isFinished());
+        $task->update($dto->getName());
         $this->taskRepository->save($task);
 
         return $task;
@@ -51,5 +51,23 @@ class TaskService
     {
         $task = $this->get($id);
         $this->taskRepository->delete($task);
+    }
+
+    public function finish(int $id): Task
+    {
+        $task = $this->get($id);
+        $task->finish();
+        $this->taskRepository->save($task);
+
+        return $task;
+    }
+
+    public function unfinish(int $id): Task
+    {
+        $task = $this->get($id);
+        $task->unfinish();
+        $this->taskRepository->save($task);
+
+        return $task;
     }
 }

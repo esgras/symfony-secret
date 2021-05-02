@@ -1,0 +1,48 @@
+---
+- name: Add php repository
+  become: yes
+  apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+  tags:
+    - install
+
+- name: Install php packages
+  become: yes
+  apt:
+    name: "{{ php_cli_packages }}"
+    state: present
+    update_cache: yes
+  tags:
+    - install
+
+- name: Copy composer install script
+  copy:
+    src: scripts/install_composer.sh
+    dest: ~/install_composer.sh
+    mode: '0755'
+  tags:
+    - install
+
+- name: Download composer
+  shell: ~/install_composer.sh
+  tags:
+    - install
+
+- name: Move comoser globally
+  become: true
+  file:
+    src: composer.phar
+    dest: /usr/local/bin/composer
+    mode: '0777'
+    state: hard
+    force: yes
+  tags:
+    - install
+
+- name: Remove composer install script
+  file:
+    path: ~/install_composer.sh
+    state: absent
+  tags:
+    - install

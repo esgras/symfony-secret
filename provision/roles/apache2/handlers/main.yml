@@ -1,0 +1,6 @@
+---
+- name: Reload apache2 from conf
+  become: yes
+  service:
+    name: apache2
+    state: reloaded

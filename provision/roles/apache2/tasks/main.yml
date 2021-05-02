@@ -1,0 +1,41 @@
+---
+- name: Install apache2 packages
+  become: yes
+  apt:
+    name: "{{ apache2_packages }}"
+    state: present
+  tags:
+    - install
+
+- name: a2enmod
+  become: yes
+  apache2_module:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  with_items:
+    - { name: "mpm_itk", state: "present" }
+    - { name: "dir", state: "present" }
+    - { name: "rewrite", state: "present" }
+  tags:
+    - install
+
+- name: Create site dir
+  become: yes
+  file:
+    path: "{{ site_directory }}"
+    state: directory
+    owner: "{{ apache2_app_user }}"
+    group: "{{ apache2_app_user }}"
+    mode: '0755'
+  tags:
+    - install
+
+- name: Upload apache2 conf file
+  become: yes
+  template:
+    src: site.conf
+    dest: /etc/apache2/sites-available/000-default.conf
+  notify: Reload apache2 from conf
+  tags:
+    - install
+    - deploy

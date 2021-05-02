@@ -1,0 +1,28 @@
+---
+- name: Composer Install
+  composer:
+    no_dev: yes
+    optimize_autoloader: yes
+    working_dir: "{{ project_dir }}"
+  tags:
+    - install
+    - deploy
+
+- name: Composer dump env
+  shell: "cd {{ project_dir }} && composer dump-env {{ app_env }}"
+  tags:
+    - deploy
+    - install
+    - dump-env
+
+- name: Clear cache
+  command: "{{ symfony_console_path }} cache:clear --env={{ app_env }}"
+  tags:
+    - deploy
+    - install
+
+- name: Run migrations
+  command: "{{ symfony_console_path }} doctrine:migrations:migrate --no-interaction --env={{ app_env }}"
+  tags:
+    - deploy
+    - install

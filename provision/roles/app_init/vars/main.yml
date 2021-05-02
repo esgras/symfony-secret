@@ -1,0 +1,5 @@
+---
+init_packages: ['git']
+repo_url: "https://github.com/esgras/symfony-secret.git"
+project_dir: "/var/www/{{ site_name }}"
+app_user: vagrant

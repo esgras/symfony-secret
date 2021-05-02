@@ -1,0 +1,39 @@
+---
+- name: Install packages
+  become: yes
+  apt:
+    name: "{{ init_packages }}"
+    state: present
+  tags:
+    - install
+    - git
+
+- name: Remove project_dir if exists
+  become: yes
+  file:
+    path: "{{ project_dir }}"
+    state: absent
+  tags:
+    - install
+    - git
+
+- name: Create project directory
+  become: yes
+  file:
+    path: "{{ project_dir }}"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0755'
+  tags:
+    - install
+    - git
+
+- name: Deploy git code
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ project_dir }}"
+    force: yes
+  tags:
+    - install
+    - git

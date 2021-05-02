@@ -1,0 +1,5 @@
+---
+  apache2_packages: ['apache2', 'libapache2-mpm-itk', 'libapache2-mod-php7.4']
+  apache2_app_user: vagrant
+  apache2_site_name: vagrant.test
+  apache2_site_directory: "/var/www/{{ site_name }}"

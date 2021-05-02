@@ -27,10 +27,10 @@ class Task
      */
     private bool $finished;
 
-    public function __construct(string $name, bool $finished)
+    public function __construct(string $name)
     {
         $this->setName($name);
-        $this->setFinished($finished);
+        $this->setFinished(false);
     }
 
     public function getId(): ?int
@@ -62,10 +62,22 @@ class Task
         return $this;
     }
 
-    public function update(string $name, bool $finished): self
+    public function unfinish(): self
     {
-        $this->setName($name)
-            ->setFinished($finished);
+        $this->setFinished(false);
+        return $this;
+    }
+
+    public function finish(): self
+    {
+        $this->setFinished(true);
+
+        return $this;
+    }
+
+    public function update(string $name): self
+    {
+        $this->setName($name);
 
         return $this;
     }

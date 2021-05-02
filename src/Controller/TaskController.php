@@ -74,4 +74,24 @@ class TaskController extends AbstractController
 
         return $this->json(true);
     }
+
+    /**
+     * @Route("/{id}/finish", requirements={"id": "\d+"}, methods={"PUT"})
+     */
+    public function finish(int $id): JsonResponse
+    {
+        $task = $this->taskService->finish($id);
+
+        return $this->json($task);
+    }
+
+    /**
+     * @Route("/{id}/unfinish", requirements={"id": "\d+"}, methods={"PUT"})
+     */
+    public function unfinish(int $id): JsonResponse
+    {
+        $task = $this->taskService->unfinish($id);
+
+        return $this->json($task);
+    }
 }

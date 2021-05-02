@@ -1,0 +1,23 @@
+---
+- name: Populate service facts
+  service_facts:
+  tags:
+    - php-apache2
+
+- name: php-apache2 add ppa:ondrej/php
+  become: yes
+  apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+  tags:
+    - php-apache2
+
+- name: install php-apache2 packages
+  become: yes
+  changed_when: yes
+  apt:
+    name: "{{ php_apache2_packages }}"
+    state: present
+  tags:
+    - php-apache2
+  notify: Reload apache2
