@@ -1,4 +1,4 @@
 ---
   mysql_packages: ['mysql-server', 'python3-mysqldb']
-  db_name: symfony_test
-  mysql_root_password: asdf
+  db_name: "{{ vault_db_name }}"
+  mysql_root_password: "{{ vault_mysql_root_password }}"

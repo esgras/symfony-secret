@@ -2,8 +2,6 @@
 - hosts: all
   gather_facts: false
 
-  vars_files:
-    - ./vars/vars.yml
 
   vars_prompt:
     - name: app_env
@@ -12,7 +10,11 @@
       private: no
 
   environment:
-      APP_ENV: "{{ app_env }}"
+    APP_ENV: "{{ app_env }}"
+
+  vars_files:
+    - ./vars/vars.yml
+    - "./vars/vault/{{ app_env }}.yml"
 
   pre_tasks:
     - name: Convert entered Symfony environment to lowercase
