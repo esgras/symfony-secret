@@ -1,0 +1,15 @@
+---
+  rabbitmq_essential_dependencies: ['curl', 'gnupg', 'debian-keyring', 'debian-archive-keyring', 'apt-transport-https']
+  rabbitmq_distribution: bionic
+  rabbitmq_erlang_packages: ['erlang-base', 'erlang-asn1', 'erlang-crypto', 'erlang-eldap', 'erlang-ftp',
+                             'erlang-inets', 'erlang-mnesia', 'erlang-os-mon', 'erlang-parsetools', 'erlang-public-key',
+                             'erlang-runtime-tools', 'erlang-snmp', 'erlang-ssl', 'erlang-syntax-tools', 'erlang-tftp',
+                             'erlang-tools',  'erlang-xmerl']
+  rabbitmq_repositories: [
+      "deb http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu {{ rabbitmq_distribution }} main",
+      "deb-src http://ppa.launchpad.net/rabbitmq/rabbitmq-erlang/ubuntu {{ rabbitmq_distribution }} main",
+      "deb https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ {{ rabbitmq_distribution }} main",
+      "deb-src https://packagecloud.io/rabbitmq/rabbitmq-server/ubuntu/ {{ rabbitmq_distribution }} main"
+  ]
+  rabbitmq_user: "{{ vault_rabbitmq_user }}"
+  rabbitmq_user_password: "{{ vault_rabbitmq_password }}"

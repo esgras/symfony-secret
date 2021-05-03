@@ -1,0 +1,90 @@
+---
+- name: Install Rabbitmq Essential Dependencies
+  become: yes
+  apt:
+    name: "{{ rabbitmq_essential_dependencies }}"
+    state: present
+  tags:
+    - install
+
+- name: Primary RabbitMQ signing key
+  become: yes
+  shell: curl -fsSL https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc | apt-key add -
+  tags:
+    - install
+
+- name: Launchpad PPA signing key for apt
+  become: yes
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: F77F1EDA57EBB1CC
+    state: present
+  tags:
+    - install
+
+- name: Launchpad PPA signing key for apt
+  become: yes
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: F6609E60DC62814E
+    state: present
+  tags:
+    - install
+
+- name: Make /etc/apt/sources.list.d/rabbitmq.list
+  become: yes
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    filename: rabbitmq.list
+    update_cache: yes
+  with_items: "{{ rabbitmq_repositories }}"
+  tags:
+    - install
+
+- name: Install Erlang packages
+  become: yes
+  apt:
+    name: "{{ rabbitmq_essential_dependencies }}"
+    state: present
+  tags:
+    - install
+
+- name: Install rabbitmq-server
+  become: yes
+  apt:
+    name: rabbitmq-server
+    state: fixed
+  tags:
+    - install
+
+- name: Ensure rabbitmq-server started
+  become: yes
+  service:
+    name: rabbitmq-server
+    state: started
+  tags:
+    - install
+
+- name: Enables the rabbitmq_management plugin
+  become: yes
+  rabbitmq_plugin:
+    names: rabbitmq_management
+    state: enabled
+  tags:
+    - install
+
+- name: Add rabbitmq user
+  become: yes
+  rabbitmq_user:
+    user: "{{ rabbitmq_user }}"
+    password: "{{ rabbitmq_user_password }}"
+    vhost: /
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    state: present
+    tags: "administrator,{{ rabbitmq_user }}"
+  tags:
+    - install
+

@@ -30,8 +30,23 @@
   tags:
     - install
 
+- name: Deploy git code
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ project_dir }}"
+    force: yes
+  tags:
+    - deploy
+
+- debug:
+    var: app_user
+  tags:
+    - install
+
+
 - name: Upload apache2 conf file
   become: yes
+  changed_when: yes
   template:
     src: site.conf
     dest: /etc/apache2/sites-available/000-default.conf

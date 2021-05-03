@@ -1,0 +1,15 @@
+---
+- hosts: webserver
+  gather_facts: false
+
+  vars_files:
+    - "./vars/vault/{{ app_env}}.yml"
+
+  pre_tasks:
+  - name: Update apt cache
+    become: yes
+    apt:
+      update_cache: yes
+
+  roles:
+    - rabbitmq

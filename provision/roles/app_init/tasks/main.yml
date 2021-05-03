@@ -6,7 +6,7 @@
     state: present
   tags:
     - install
-    - git
+#    - git
 
 - name: Remove project_dir if exists
   become: yes
@@ -15,7 +15,7 @@
     state: absent
   tags:
     - install
-    - git
+#    - git
 
 - name: Create project directory
   become: yes
@@ -27,7 +27,7 @@
     mode: '0755'
   tags:
     - install
-    - git
+#    - git
 
 - name: Deploy git code
   git:
@@ -36,4 +36,25 @@
     force: yes
   tags:
     - install
-    - git
+#    - git
+#
+#
+#- debug:
+#    var: app_user
+#  tags:
+#    - install
+#
+#- debug:
+#    var: site_name
+#  tags:
+#    - install
+#
+#- debug:
+#    var: ansible_user
+#  tags:
+#    - install
+#
+#- debug:
+#    var: app_env
+#  tags:
+#    - install

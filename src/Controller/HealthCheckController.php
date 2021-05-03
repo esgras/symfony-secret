@@ -14,11 +14,11 @@ class HealthCheckController extends AbstractController
     /**
      * @Route("")
      */
-    public function index(string $environment): Response
+    public function index(string $environment, bool $debug): Response
     {
         return $this->json([
-            'success' => true,
-            'env' => $environment
+            'env' => $environment,
+            'debug' => $debug
         ]);
     }
 }

@@ -1,17 +1,17 @@
 ---
+- name: Copy prod.encrypt.private.php
+  copy:
+    src: "../../config/secrets/{{ app_env }}/{{ app_env }}.decrypt.private.php"
+    dest: "{{ secrets_private_key }}"
+  tags:
+    - install
+    - deploy
+
 - name: Composer Install
   composer:
     no_dev: yes
     optimize_autoloader: yes
     working_dir: "{{ project_dir }}"
-  tags:
-    - install
-    - deploy
-
-- name: Copy prod.encrypt.private.php
-  copy:
-    src: "../../config/secrets/{{ app_env }}/{{ app_env }}.decrypt.private.php"
-    dest: "{{ secrets_private_key }}"
   tags:
     - install
     - deploy
