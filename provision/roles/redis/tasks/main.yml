@@ -1,0 +1,29 @@
+---
+- name: Add redis repository
+  become: yes
+  apt_repository:
+    repo: ppa:redislabs/redis
+    state: present
+    update_cache: yes
+
+- name: Install redis
+  become: yes
+  apt:
+    name: redis
+    state: present
+  tags:
+    - install
+    - redis
+
+- name: Copy redis.conf
+  become: yes
+  notify: Restart redis
+  template:
+    src: redis.conf.j2
+    dest: /etc/redis/redis.conf
+    owner: redis
+    group: redis
+    mode: '0640'
+  tags:
+    - install
+    - redis

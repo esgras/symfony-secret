@@ -10,6 +10,7 @@
 
 - name: Copy supervisor.conf
   become: yes
+  changed_when: yes
   template:
     src: supervisor.conf.j2
     dest: /etc/supervisor/conf.d/supervisor.conf

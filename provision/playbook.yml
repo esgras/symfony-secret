@@ -31,7 +31,6 @@
       tags:
         - install
 
-
   roles:
     - php-cli
     - app_init
@@ -39,7 +38,7 @@
     - php-apache2
     - mysql
     - rabbitmq
-    - supervisor
+    - { role: supervisor, supervisor_user: "{{ app_user }}", supervisor_app_directory: "{{ project_dir }}"}
 
   tasks:
     - name: Deploy git code
