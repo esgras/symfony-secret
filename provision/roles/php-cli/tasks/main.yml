@@ -16,6 +16,16 @@
   tags:
     - install
 
+- name: php symlink to /usr/local/bin/php
+  become: yes
+  file:
+    src: /usr/bin/php
+    dest: /usr/local/bin/php
+    state: link
+    force: yes
+  tags:
+    - install
+
 - name: Copy composer install script
   copy:
     src: scripts/install_composer.sh

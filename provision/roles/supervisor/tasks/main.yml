@@ -1,0 +1,21 @@
+---
+- name: Install supervisord
+  become: yes
+  apt:
+    name: supervisor
+    state: present
+  tags:
+    - install
+    - supervisord
+
+- name: Copy supervisor.conf
+  become: yes
+  template:
+    src: supervisor.conf.j2
+    dest: /etc/supervisor/conf.d/supervisor.conf
+  notify: Restart supervisord
+  tags:
+    - install
+    - deploy
+    - supervisord
+

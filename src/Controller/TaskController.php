@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Dto\TaskCreateDto;
 use App\Dto\TaskUpdateDto;
+use App\Message\TaskMessage;
 use App\Service\TaskService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -19,11 +21,16 @@ class TaskController extends AbstractController
 {
     private TaskService $taskService;
     private SerializerInterface $serializer;
+    private MessageBusInterface $messageBus;
 
-    public function __construct(TaskService $taskService, SerializerInterface $serializer)
-    {
+    public function __construct(
+        TaskService $taskService,
+        SerializerInterface $serializer,
+        MessageBusInterface $messageBus
+    ) {
         $this->taskService = $taskService;
         $this->serializer = $serializer;
+        $this->messageBus = $messageBus;
     }
 
     /**
@@ -48,9 +55,11 @@ class TaskController extends AbstractController
     public function create(Request $request): JsonResponse
     {
         $dto = $this->serializer->deserialize($request->getContent(), TaskCreateDto::class, 'json');
-        $task = $this->taskService->create($dto);
+        $this->messageBus->dispatch(new TaskMessage($dto->getName()));
 
-        return $this->json($task);
+        return $this->json([
+            'message' => 'Task will be created soon...'
+        ]);
     }
 
     /**

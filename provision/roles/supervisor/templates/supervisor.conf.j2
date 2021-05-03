@@ -1,0 +1,16 @@
+[supervisord]
+nodaemon=true
+
+[program:messenger-consume-task]
+directory=/var/www/html/
+command=/usr/local/bin/php bin/console messenger:consume async_task_high --time-limit=3600
+user={{ supervisor_user }}
+#numprocs=2
+autostart=true
+autorestart=true
+startretries=40
+process_name=%(program_name)s_%(process_num)02d
+#stdout_logfile_maxbytes=0
+#stdout_logfile=/proc/1/fd/1
+#stderr_logfile_maxbytes=0
+#stderr_logfile=/proc/1/fd/2

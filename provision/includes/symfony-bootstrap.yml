@@ -40,3 +40,9 @@
   tags:
     - deploy
     - install
+
+- name: Messenger setup-transports
+  command: "{{ symfony_console_path }} messenger:setup-transports --env={{ app_env }}"
+  tags:
+    - deploy
+    - install

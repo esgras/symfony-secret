@@ -39,6 +39,7 @@
     - php-apache2
     - mysql
     - rabbitmq
+    - supervisor
 
   tasks:
     - name: Deploy git code
