@@ -1,3 +1,4 @@
 ---
 supervisor_user: vagrant
 supervisor_app_directory: /var/www/vagrant.test
+supervisor_app_public_directory: /var/www/vagrant.test

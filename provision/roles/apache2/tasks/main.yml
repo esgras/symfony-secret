@@ -22,27 +22,13 @@
 - name: Create site dir
   become: yes
   file:
-    path: "{{ site_directory }}"
+    path: "{{ apache2_site_directory }}"
     state: directory
     owner: "{{ apache2_app_user }}"
     group: "{{ apache2_app_user }}"
     mode: '0755'
   tags:
     - install
-
-- name: Deploy git code
-  git:
-    repo: "{{ repo_url }}"
-    dest: "{{ project_dir }}"
-    force: yes
-  tags:
-    - deploy
-
-- debug:
-    var: app_user
-  tags:
-    - install
-
 
 - name: Upload apache2 conf file
   become: yes

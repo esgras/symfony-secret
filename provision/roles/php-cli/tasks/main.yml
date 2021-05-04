@@ -56,3 +56,17 @@
     state: absent
   tags:
     - install
+
+- name: Populate service facts
+  service_facts:
+  tags:
+    - install
+
+- name: Stop apache2 if installed
+  become: yes
+  service:
+    name: apache2
+    state: stopped
+  when: "'apache2' in services"
+  tags:
+    - install

@@ -34,11 +34,14 @@
   roles:
     - php-cli
     - app_init
-    - { role: apache2, apache2_site_name: "{{ site_name }}", apache2_site_directory: "{{ project_dir }}/public", apache2_app_user: "{{ app_user }}"}
-    - php-apache2
+#    - { role: apache2, apache2_site_name: "{{ site_name }}", apache2_site_directory: "{{ project_dir }}/public", apache2_app_user: "{{ app_user }}"}
+#    - php-apache2
+    - { role: nginx, nginx_site_name: "{{ site_name }}", nginx_root_dir: "{{ project_dir }}/public", nginx_user: "{{ app_user }}" }
+    - php-fpm
     - mysql
     - rabbitmq
-    - { role: supervisor, supervisor_user: "{{ app_user }}", supervisor_app_directory: "{{ project_dir }}"}
+    - { role: supervisor, supervisor_user: "{{ app_user }}", supervisor_app_directory: "{{ project_dir }}", supervisor_app_public_directory: "{{ project_dir }}/public"}
+    - redis
 
   tasks:
     - name: Deploy git code

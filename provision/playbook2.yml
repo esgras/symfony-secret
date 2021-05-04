@@ -3,6 +3,7 @@
   gather_facts: false
 
   vars_files:
+    - ./vars/vars.yml
     - "./vars/vault/{{ app_env}}.yml"
 
   pre_tasks:
@@ -12,5 +13,25 @@
       update_cache: yes
 
   roles:
-#    - supervisor
-    - redis
+#    - { role: supervisor, supervisor_user: "{{ app_user }}", supervisor_app_directory: "{{ project_dir }}", supervisor_app_public_directory: "{{ project_dir }}/public"}
+#    - php-cli
+#    - app_init
+    - { role: nginx, nginx_site_name: "{{ site_name }}", nginx_root_dir: "{{ project_dir }}/public", nginx_user: "{{ app_user }}"}
+#    - php-fpm
+
+
+  tasks:
+#    - name: Copy adminer
+#      copy:
+#        src: supervisor
+#        state: restarted
+#
+#    - name: Reload supervisor
+#      service:
+#        name: supervisor
+#        state: restarted
+
+    - name: Reload nginx
+      service:
+        name: nginx
+        state: restarted

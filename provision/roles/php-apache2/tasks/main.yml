@@ -3,6 +3,7 @@
   service_facts:
   tags:
     - php-apache2
+    - install
 
 - name: php-apache2 add ppa:ondrej/php
   become: yes
@@ -11,6 +12,7 @@
     state: present
   tags:
     - php-apache2
+    - install
 
 - name: install php-apache2 packages
   become: yes
@@ -20,4 +22,5 @@
     state: present
   tags:
     - php-apache2
+    - install
   notify: Reload apache2

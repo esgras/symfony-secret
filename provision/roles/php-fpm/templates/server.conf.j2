@@ -1,0 +1,12 @@
+[{{ php_fpm_user }}]
+user = {{ php_fpm_user }}
+group = {{ php_fpm_group }}
+listen = /run/php/php7.4-fpm-{{ php_fpm_user }}.sock
+listen.owner = {{ php_fpm_user }}
+listen.group = {{ php_fpm_group }}
+pm = ondemand
+pm.max_children = 15
+pm.start_servers = 5
+pm.min_spare_servers = 3
+pm.max_spare_servers = 5
+

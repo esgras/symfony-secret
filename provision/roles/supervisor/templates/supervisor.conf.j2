@@ -14,3 +14,9 @@ process_name=%(program_name)s_%(process_num)02d
 #stdout_logfile=/proc/1/fd/1
 #stderr_logfile_maxbytes=0
 #stderr_logfile=/proc/1/fd/2
+
+
+[program:adminer]
+directory={{ supervisor_app_public_directory }}
+command=/usr/local/bin/php -S localhost:{{ adminer_port }} adminer.php
+stopwaitsecs=60

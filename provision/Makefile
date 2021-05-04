@@ -11,7 +11,3 @@ deploy-prod:
 install-prod:
 	@ansible-playbook playbook.yml -t install --limit=prod --key-file=${SSH_KEY}  --ask-vault-pass
 
-redis:
-	@ansible-playbook playbook2.yml --limit=staging -e "app_env=staging" -t redis   --ask-vault-pass
-	@#ansible-playbook playbook2.yml -t print --limit=staging -e "app_env=staging"
-

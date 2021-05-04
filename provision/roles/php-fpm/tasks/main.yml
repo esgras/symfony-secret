@@ -1,0 +1,39 @@
+---
+#- name: Add php repository
+#  become: yes
+#  apt_repository:
+#    repo: ppa:ondrej/php
+#    state: present
+#  tags:
+#    - install
+
+- name: Install php-fpm packages
+  become: yes
+  apt:
+    name: php7.4-fpm
+    state: present
+  tags:
+    - php-fpm
+    - install
+
+- name: Copy php-fpm.conf
+  become: yes
+  notify:
+    - Reload php-fpm
+  changed_when: yes
+  template:
+    src: server.conf.j2
+    dest: "/etc/php/7.4/fpm/pool.d/{{ php_fpm_user }}.conf"
+  tags:
+    - php-fpm
+    - install
+    - reload-fpm
+
+- name: Notify nginx to reload
+  notify: Reload nginx
+  changed_when: yes
+  debug:
+  tags:
+    - php-fpm
+    - install
+    - reload-fpm

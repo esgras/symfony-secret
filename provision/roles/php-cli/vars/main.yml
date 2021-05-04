@@ -1,4 +1,9 @@
 ---
-  php_cli_packages: ['php7.4', 'php7.4-common', 'php7.4-cli', 'php7.4-mysql',
+  php_cli_packages: [
+                     'php7.4',
+                     'php7.4-common',
+                     'php7.4-cli',
+                     'php7.4-mysql',
                      'php7.4-ctype', 'php7.4-iconv', 'php7.4-json', 'php7.4-xml', 'php7.4-mbstring', 'php7.4-intl',
-                     'php7.4-amqp', 'php7.4-redis', 'zip', 'unzip', 'wget']
+                     'php7.4-amqp', 'php7.4-redis', 'zip', 'unzip', 'wget'
+  ]

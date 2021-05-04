@@ -1,0 +1,5 @@
+---
+nginx_user: www-data
+nginx_site_name: vagrant.test
+nginx_root_dir: "/var/www/{{ site_name }}"
+rabbitmq_proxy_path: http://localhost::15672
