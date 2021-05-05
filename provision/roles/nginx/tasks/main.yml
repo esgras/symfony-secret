@@ -7,7 +7,6 @@
     update_cache: yes
   tags:
     - install
-    - rabbit
 
 
 - name: Install nginx
@@ -16,7 +15,6 @@
     name: nginx
     state: present
   tags:
-    - php-fpm
     - install
     - rabbit
 
@@ -26,9 +24,7 @@
     src: site.conf.j2
     dest: /etc/nginx/sites-available/default
   tags:
-    - php-fpm
     - install
-    - rabbit
 
 - name: Create site dir
   become: yes

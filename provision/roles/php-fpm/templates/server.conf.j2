@@ -2,8 +2,8 @@
 user = {{ php_fpm_user }}
 group = {{ php_fpm_group }}
 listen = /run/php/php7.4-fpm-{{ php_fpm_user }}.sock
-listen.owner = {{ php_fpm_user }}
-listen.group = {{ php_fpm_group }}
+listen.owner = www-data
+listen.group = www-data
 pm = ondemand
 pm.max_children = 15
 pm.start_servers = 5

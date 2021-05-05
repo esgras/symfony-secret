@@ -19,4 +19,7 @@ process_name=%(program_name)s_%(process_num)02d
 [program:adminer]
 directory={{ supervisor_app_public_directory }}
 command=/usr/local/bin/php -S localhost:{{ adminer_port }} adminer.php
-stopwaitsecs=60
+
+[program:restart-adminer-every-hour]
+command=sh -c "echo 'restart adminer' | supervisorctl; sleep 600"
+autorestart=true

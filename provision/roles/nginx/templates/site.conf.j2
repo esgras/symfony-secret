@@ -37,13 +37,6 @@ server {
             return 404;
     }
 
-    # Add cache headers for site assets.
-    location ~* \.(?:ico|css|js|gif|jpe?g|png|eot|woff|ttf)$ {
-        expires 30d;
-        add_header Pragma public;
-        add_header Cache-Control "public";
-    }
-
     location /adminer {
 	    access_log off;
 	    error_log off;
@@ -78,6 +71,8 @@ server {
 
 
      location /rabbitmq/api/ {
+        access_log off;
+        error_log off;
         rewrite ^ $request_uri;
         rewrite ^/rabbitmq/api/(.*) /api/$1 break;
         return 400;
@@ -85,12 +80,12 @@ server {
     }
 
     location /rabbitmq {
+        access_log off;
+        error_log off;
         rewrite ^/rabbitmq$ /rabbitmq/ permanent;
         rewrite ^/rabbitmq/(.*)$ /$1 break;
 
         proxy_pass {{ rabbitmq_proxy_path }};
-
-
         proxy_buffering                    off;
         proxy_set_header Host              $http_host;
         proxy_set_header X-Real-IP         $remote_addr;

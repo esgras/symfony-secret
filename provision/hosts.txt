@@ -1,8 +1,8 @@
 [staging]
-192.168.33.10 ansible_user=vagrant app_env=staging  ansible_ssh_private_key_file=/home/vayn/code_practice/ansible_docker/.vagrant/machines/default/virtualbox/private_key
+192.168.33.10 ansible_user=vagrant app_env=staging
 
 [prod]
-13.53.176.151 ansible_user=ubuntu app_env=prod
+13.48.55.216 ansible_user=ubuntu app_env=prod
 
 [webserver:children]
 staging

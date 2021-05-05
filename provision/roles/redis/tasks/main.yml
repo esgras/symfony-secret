@@ -13,7 +13,6 @@
     state: present
   tags:
     - install
-    - redis
 
 - name: Copy redis.conf
   become: yes
@@ -26,4 +25,3 @@
     mode: '0640'
   tags:
     - install
-    - redis

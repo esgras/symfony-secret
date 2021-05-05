@@ -6,7 +6,6 @@
     state: present
   tags:
     - install
-    - supervisord
 
 - name: Copy supervisor.conf
   become: yes
@@ -18,6 +17,4 @@
   tags:
     - install
     - deploy
-    - supervisord
-    - adminer
 
